@@ -1,0 +1,34 @@
+.navbar .container {
+	margin: 0 0 0 10px;
+}
+
+.horizontal-layout {
+		width: 100000px;
+		clear: both;
+}
+
+.season-vertical {
+	float: left;
+	width: 250px;
+	min-height: 500px;
+	margin: 0 3px;
+}
+
+.season-vertical table thead th.name {
+	height: 3em;
+	vertical-align: top;
+	text-align: center;
+}
+
+.season-horizontal table {
+	width: auto;
+}
+
+.dropdown-menu {
+	overflow-y: auto;
+	max-height: 30em;
+}
+
+.footer {
+	clear: both;
+}

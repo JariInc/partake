@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics{% endblock %}
+
+{% block content %}
+<div class="container">
+	<h2>Statistics</h2>
+	<h3>Serie participations per season</h3>
+	<div id="totaldrivers" style="height: 250px;"></div>
+	<p>
+		<small>Note: Each driver is counted in as many series/classes he/she raced in during one iRacing season (12 weeks).</small>
+	</p>
+</div>
+{% endblock %}
+
+{% block js %}
+	new Morris.Area({
+		element: 'totaldrivers',
+		data: [
+			{% for q, totals in totaldrivers.items %}
+			{ 
+				quarter: '{{q}}', 
+				road: '{{totals.r}}',
+				oval: '{{totals.o}}'
+			},
+			{% endfor %}
+		],
+		xkey: 'quarter',
+		ykeys: ['road','oval'],
+		labels: ['road', 'oval']
+	});
+	
+{% endblock %}

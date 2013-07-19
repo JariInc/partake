@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ s.name }}{% endblock %}
+
+{% block content %}
+	<div class="container">
+    <h2>{{ s.name }}</h2>
+    <div id="driversperseason" style="height: 250px;"></div>
+    <h3>Seasons</h3>
+    {% for season in s.seasons.all %}
+    <h4>{{ season.year }}S{{ season.quarter }}</h4>
+    {% include "season_stats.html" with season=season %}
+    {% endfor %}
+    
+	</div>
+{% endblock %}
+
+{% block js %}
+	new Morris.Line({
+		element: 'driversperseason',
+		data: [
+			{% for season in s.seasons.all %}
+			{ 
+				quarter: '{{season.year}} Q{{season.quarter}}', 
+				{% for class in season.totalDrivers %}
+					{{class.id}}: '{{class.sum}}',
+				{% endfor %}
+			},
+			{% endfor %}
+		],
+		xkey: 'quarter',
+		ykeys: [
+		{% for class in s.allClasses %}
+			'{{class.id}}',
+		{% endfor %}],
+		labels: [
+		{% for class in s.allClasses	 %}
+			'{{class.name}}',
+		{% endfor %}]
+	});
+{% endblock %}

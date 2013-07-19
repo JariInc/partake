@@ -1,0 +1,31 @@
+{% load partake_tags %}
+<div class="season-horizontal">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Class</th>
+				{% regroup season.weeks.all by track as trackgroup %}
+				{% for track in trackgroup %}
+				<th>
+					<abbr title="{{ track.grouper.name|default:'Total drivers participated' }}">
+					{{ track.grouper.name|acronize|default:"Total" }}
+					</abbr>
+				</th>
+				{% endfor %}
+				<th>Average</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% regroup season.weeks.all|dictsort:"carclass.id" by carclass as classgroup %}
+			{% for class in classgroup %}
+			<tr>
+				<td>{{ class.grouper.name }}</td>
+				{% for week in class.list %}
+				<td>{{ week.drivers }}</td>
+				{% endfor %}
+				<td>{{ class.list|driver_avg }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

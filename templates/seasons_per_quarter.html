@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Series by season{% endblock %}
+
+{% block content %}
+	<div class="container">
+    <h2>Series</h2>
+			{% for sea in seasons %}
+			<h3><a href="{% url "partake.views.singleSeries" sea.series.id %}">{{ sea.series.name }}</a></h3>
+			<h4>{{ sea.name }}</h4>
+			{% include "season_stats.html" with season=sea %}
+			{% endfor %}
+		</div>
+{% endblock %}
