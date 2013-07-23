@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import os
 import http.cookiejar
@@ -10,7 +10,6 @@ import datetime
 import time
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'partake.settings'
-
 
 class iracingapi:
 	def __init__(self):
@@ -38,9 +37,9 @@ class iracingapi:
 			else:
 				response = opener.open(url, urllib.parse.urlencode(params).encode('utf-8'))
 		except urllib.error.HTTPError:
-			logger.error("HTTPError: %s", exc.code)
+			logger.critical("HTTPError: %s", exc.code)
 		except urllib.error.URLError:
-			logger.error("URLError: %s", exc.code)
+			logger.critical("URLError: %s", exc.code)
 		finally:
 			self.delay = time.perf_counter() - timer
 		
@@ -79,7 +78,7 @@ def addCar(d):
 			name = urllib.parse.unquote_plus(d["name"])
 		)
 	c.save()
-	logger.info("Adding car %s", c.name)
+	logger.warning("Adding car %s", c.name)
 	return c
 
 def addCarClass(d):
@@ -88,7 +87,7 @@ def addCarClass(d):
 			name = urllib.parse.unquote_plus(d["name"])
 		)
 	cc.save()
-	logger.info("Adding class %s", cc.name)
+	logger.warning("Adding class %s", cc.name)
 	return cc
 
 def addTrack(d):
@@ -98,7 +97,7 @@ def addTrack(d):
 			layout = urllib.parse.unquote_plus(d["config"])
 		)
 	t.save()
-	logger.info("Adding track %s %s", t.name, t.layout)
+	logger.warning("Adding track %s %s", t.name, t.layout)
 	return t
 
 def addSeason(d):
@@ -142,7 +141,7 @@ def addSeason(d):
 		ser = Series.objects.get(id=d["seriesid"])
 		ser.seasons.add(s)
 		
-		logger.info("Adding season %s", s.name)
+		logger.warning("Adding season %s", s.name)
 		return s
 	else:
 		# rookie seasons fallback
@@ -202,7 +201,7 @@ if __name__ == "__main__":
 	logger = logging.getLogger("iracingapi")
 	logger.setLevel(logging.DEBUG)
 	ch = logging.StreamHandler()
-	ch.setLevel(logging.DEBUG)
+	ch.setLevel(logging.WARNING)
 	formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 	ch.setFormatter(formatter)
 	logger.addHandler(ch)
@@ -222,9 +221,9 @@ if __name__ == "__main__":
 	if m:
 		seasons = sorted(json.loads(m[1]), key=lambda k: k['seasonid'])
 		
-		f = open('seasons.dict.txt', 'w+')
-		pprint.pprint(seasons, f)
-		f.close()
+		#f = open('seasons.dict.txt', 'w+')
+		#pprint.pprint(seasons, f)
+		#f.close()
 	
 		for season in seasons:
 			if season["year"] > curyear and season["quarter"] > curquarter:
@@ -332,7 +331,7 @@ if __name__ == "__main__":
 				sea.save()
 				
 	else:
-		logger.error('No match, something went horribly wrong')
+		logger.critical('No match, something went horribly wrong')
 	
 	logger.info('Update finished in %s minutes, fetched %s kB', round((time.time()-starttime)/60), round(api.dlbytes/1024))
 	

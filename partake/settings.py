@@ -1,6 +1,5 @@
 # Django settings for partake project.
 import os.path
-
 BASEDIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 DEBUG = True
@@ -14,10 +13,9 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'partake.db',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'partake',                      # Or path to database file if using sqlite3.
+        'USER': 'partake',
         'PASSWORD': '',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.

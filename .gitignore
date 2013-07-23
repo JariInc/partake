@@ -2,3 +2,7 @@ partake.db
 partake/__pycache__
 .cookiejar
 .directory
+log
+run
+partake/migrations
+*__pycache__*

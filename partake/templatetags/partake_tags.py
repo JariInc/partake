@@ -1,3 +1,4 @@
+from operator import itemgetter
 from django import template
 from partake.models import *
 
@@ -24,10 +25,12 @@ def acronize(str):
 		return str[0:4]
 
 def quarter_menu():
-	seasons = Season.objects.all() #.distinct('quarter', 'year')
+	#seasons = Season.objects.all() #.distinct('quarter', 'year')
+	seasons = Season.objects.distinct('quarter', 'year')
 	quarters = []
 	for season in seasons:
 		quarters.append({'year': season.year, 'quarter': season.quarter})
+	quarters = sorted(quarters, key=itemgetter('year'))
 	return {'quarters': quarters}
 
 def series_menu():
