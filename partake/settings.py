@@ -95,6 +95,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -102,6 +103,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'partake.urls'
@@ -129,7 +131,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'partake',
-    'south'
+    'south',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -160,3 +162,14 @@ LOGGING = {
         },
     }
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+	'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+CACHE_MIDDLEWARE_ALIAS='default'
+CACHE_MIDDLEWARE_SECONDS=3600
+CACHE_MIDDLEWARE_KEY_PREFIX='partake'
