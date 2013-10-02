@@ -199,9 +199,9 @@ if __name__ == "__main__":
 	starttime = time.time()
 	
 	logger = logging.getLogger("iracingapi")
-	logger.setLevel(logging.DEBUG)
+	logger.setLevel(logging.INFO)
 	ch = logging.StreamHandler()
-	ch.setLevel(logging.WARNING)
+	ch.setLevel(logging.INFO)
 	formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 	ch.setFormatter(formatter)
 	logger.addHandler(ch)
@@ -277,7 +277,7 @@ if __name__ == "__main__":
 						if not season["complete"] or (time.time() - season["end"]/1000) < 86400*2:
 							tmp = curweek.drivers
 							curweek.drivers = getWeeklyDrivers(sea.id, cls.id, -1)
-							logger.info("Rechecking total drivers for season %s for %s (+%s)", sea.name, cls.name, (curweek.drivers-tmp))
+							logger.info("Rechecking total drivers for season %s for %s (+%s/%s)", sea.name, cls.name, (curweek.drivers-tmp), curweek.drivers)
 							curweek.save()
 					except Season.DoesNotExist:
 						sea.weeks.create(
@@ -317,7 +317,7 @@ if __name__ == "__main__":
 								if (not season["complete"] and (week == season["raceweek"] or week == season["raceweek"]-1)) or (sea.year+(0.25*(sea.quarter-1)) == ((curyear+(0.25*(curquarter-1)))-0.25) and week == season["raceweek"] and (time.time() - season["end"]/1000) < 86400*14):
 									tmp = curweek.drivers
 									curweek.drivers = getWeeklyDrivers(sea.id, cls.id, track["raceweek"]+1)
-									logger.info("Rechecking week %s to season %s for %s (+%s)", week, sea.name, cls.name, (curweek.drivers-tmp))
+									logger.info("Rechecking week %s to season %s for %s (+%s/%s)", week, sea.name, cls.name, (curweek.drivers-tmp), curweek.drivers)
 									curweek.save()
 							except Season.DoesNotExist:
 								sea.weeks.create(

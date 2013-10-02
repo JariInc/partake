@@ -7,7 +7,7 @@
     <h2>{{ s.name }}</h2>
     <div id="driversperseason" style="height: 250px;"></div>
     <h3>Seasons</h3>
-    {% for season in s.seasons.all %}
+    {% for season in s.seasons.all|dictsortreversed:"quarter"|dictsortreversed:"year" %}
     <h4>{{ season.year }}S{{ season.quarter }}</h4>
     {% include "season_stats.html" with season=season %}
     {% endfor %}
