@@ -7,8 +7,13 @@ register = template.Library()
 def driver_avg(weeks):
 	l = []
 	for week in weeks:
-		l.append(week.drivers)
-	return round(sum(l) / float(len(l)))
+		if week.drivers > 0:
+			l.append(week.drivers)
+	
+	if len(l) > 0:
+		return round(sum(l) / float(len(l)))
+	else:
+		return 0
 
 def acronize(str):
 	if not str:
