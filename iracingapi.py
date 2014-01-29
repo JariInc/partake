@@ -199,9 +199,9 @@ if __name__ == "__main__":
 	starttime = time.time()
 	
 	logger = logging.getLogger("iracingapi")
-	logger.setLevel(logging.INFO)
+	logger.setLevel(logging.DEBUG)
 	ch = logging.StreamHandler()
-	ch.setLevel(logging.INFO)
+	ch.setLevel(logging.WARNING)
 	formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 	ch.setFormatter(formatter)
 	logger.addHandler(ch)
