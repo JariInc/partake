@@ -23,7 +23,7 @@
 				{% for week in class.list %}
 				<td>{{ week.drivers }}</td>
 				{% endfor %}
-				<td>{{ class.list|driver_avg }}</td>
+				<td>{{ class.list|slice:"1:"|driver_avg }}</td>
 			</tr>
 			{% endfor %}
 		</tbody>
