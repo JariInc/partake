@@ -54,8 +54,9 @@ class iracingapi:
 		return json.loads(tmp)
 
 	def connect(self):
-		username = 'jari@ylimainen.fi'
-		password = 'iHASw1n'
+		username = 'iracingaccount@email.com'
+		password = 'don't commit your password to git repo like 
+i did '
 		
 		logger.info("logging in...")
 		
