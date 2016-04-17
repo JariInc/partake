@@ -15,3 +15,6 @@ Database dump is available at db/partake.sql.
 * Install requirements
 * Import the database
 * Start Django
+* Set your iRacing credentials to iracingapi.py
+* Run iracingapi.py to update stats
+
