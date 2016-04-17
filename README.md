@@ -6,3 +6,12 @@
 * PostgreSQL 9.x
 
 see requirements.txt for the required python packages or install them with pip -r requirements.txt. Use of Virtualenv is highly encouraged.
+
+## Installation ##
+
+Database dump is available at db/partake.sql. 
+
+* Setup virtualenv
+* Install requirements
+* Import the database
+* Start Django
